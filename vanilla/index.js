@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron/main'
+import { app, BrowserWindow, Menu } from 'electron/main'
 import path from 'path'
 import {fileURLToPath} from 'url'
 
@@ -14,6 +14,7 @@ function createWindow () {
   })
 
   win.loadFile('index.html')
+  Menu.setApplicationMenu(null)
   win.webContents.openDevTools()
 }
 
