@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu } from 'electron/main'
+import { app, BrowserWindow } from 'electron/main'
 import path from 'path'
 import {fileURLToPath} from 'url'
 
@@ -9,12 +9,15 @@ function createWindow () {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'dom.js'),
+      nodeIntegration: true,
+      contextIsolation: false
     }
   })
-
+  
   win.loadFile('index.html')
-  Menu.setApplicationMenu(null)
+
+  //open devtools
   win.webContents.openDevTools()
 }
 
