@@ -9,12 +9,6 @@ window.addEventListener('DOMContentLoaded', () => {
     replaceText(`${type}-version`, process.versions[type])
   }
   
- const name = document.getElementById('name')
- const age = document.getElementById('age')
-
-  document.getElementById('btn').addEventListener('click', () => {
-    ipcRenderer.send('form', {name:name.value, age: age.value})//get from window
-  })
   document.getElementById('openWindow').addEventListener('click', () => {
     ipcRenderer.send('open-window')//get from window
   })

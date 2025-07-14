@@ -19,6 +19,7 @@ function createWindow () {
 
   //open devtools
   win.webContents.openDevTools()
+  console.log(process.platform)
 }
 
 app.whenReady().then(() => {

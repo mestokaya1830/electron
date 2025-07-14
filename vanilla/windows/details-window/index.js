@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, ipcMain } from 'electron/main'
+import { app, BrowserWindow, ipcMain } from 'electron/main'
 import path from 'path'
 import {fileURLToPath} from 'url'
 
@@ -44,21 +44,10 @@ app.on('window-all-closed', () => {
 
 
 //-----------------------------------------------
- //check platform
-  console.log(process.platform)
-
-  //set menu
-  Menu.setApplicationMenu(null)
-
-  
-  //get data from window
-  ipcMain.on('form', (err, data) => {
-    console.log(data)
-  })
-
-  //open new window with on main window button
+ 
+ //open new window with on main window button
   ipcMain.on('open-window', () => {
-    const winDetails = new BrowserWindow({
+    let winDetails = new BrowserWindow({
       width: 600,
       height: 400,
       webPreferences: {
