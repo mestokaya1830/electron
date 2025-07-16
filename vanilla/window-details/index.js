@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron/main'
+import { app, BrowserWindow, ipcMain, globalShortcut } from 'electron/main'
 import path from 'path'
 import {fileURLToPath} from 'url'
 
@@ -34,6 +34,11 @@ app.whenReady().then(() => {
       createWindow()
     }
   })
+
+  const registered = globalShortcut.register('CommandOrControl+D', () => {
+    windowDetails()
+  });
+
 })
 
 app.on('window-all-closed', () => {
@@ -42,20 +47,26 @@ app.on('window-all-closed', () => {
   }
 })
 
-
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
+});
 //-----------------------------------------------
  
  //open new window with on main window button
+ function windowDetails() {
+   let winDetails = new BrowserWindow({
+     width: 600,
+     height: 400,
+     webPreferences: {
+       nodeIntegration: true,
+       contextIsolation: false,
+       title:'Details'
+     }
+   })
+   winDetails.loadFile('details.html')
+   winDetails.on('close', () => winDetails = null)
+ }
+
   ipcMain.on('open-window', () => {
-    let winDetails = new BrowserWindow({
-      width: 600,
-      height: 400,
-      webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: false,
-        title:'Details'
-      }
-    })
-    winDetails.loadFile('details.html')
-    winDetails.on('close', () => winDetails = null)
+    windowDetails()
   })
