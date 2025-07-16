@@ -13,29 +13,29 @@ function createWindow () {
       nodeIntegration: true,
       contextIsolation: false
     },
-    title:'Electron',
-    backgroundColor:'#ddd'
+    frame: false
   })
   
   win.loadFile('index.html')
 
+  //close all window when main window closed
+  win.on('close', () => {
+    app.quit()
+  })
+
   //open devtools
   win.webContents.openDevTools()
-  console.log(process.platform)
 }
 
 app.whenReady().then(() => {
   createWindow()
+
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow()
     }
   })
 })
-
-// app.on('before-quit', () => {
-//   console.log('The App is quited')
-// })
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

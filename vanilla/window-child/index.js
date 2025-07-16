@@ -25,6 +25,7 @@ function createWindow () {
   childWin.loadFile('child.html')
   childWin.show()
 
+
   win.loadFile('index.html')
 
   //close all window when main window closed
