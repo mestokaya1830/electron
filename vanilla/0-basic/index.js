@@ -9,7 +9,7 @@ function createWindow () {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'dom.js'),
+      preload: path.resolve(__dirname, 'dom.js'),
       nodeIntegration: true,
       contextIsolation: false
     },
@@ -17,7 +17,7 @@ function createWindow () {
     backgroundColor:'#ddd'
   })
   
-  win.loadFile('index.html')
+  win.loadFile(path.resolve(__dirname, 'index.html'))
 
   //open devtools
   win.webContents.openDevTools()
