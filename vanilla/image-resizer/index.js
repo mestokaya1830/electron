@@ -14,8 +14,7 @@ function createWindow() {
       contextIsolation: false,
     },
   });
-  
-  win.loadFile(path.resolve(__dirname, 'index.html'))
+  win.loadFile("index.html");
   win.webContents.openDevTools();
 }
 
