@@ -20,6 +20,7 @@ window.addEventListener("DOMContentLoaded", () => {
       console.log("This is not an image");
       return;
     }
+    imageForm.style.display = "block";
   }
 
   function checkImageType(file) {
