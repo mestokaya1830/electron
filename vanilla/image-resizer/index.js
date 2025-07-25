@@ -6,12 +6,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function createWindow() {
   let win = new BrowserWindow({
-    width8: 800,
+    width: 800,
     height: 600,
     webPreferences: {
       preload: path.resolve(__dirname, "dom.js"),
       nodeIntegration: true,
       contextIsolation: false,
+      sandbox: false
     },
   });
   win.loadFile("index.html");
@@ -26,6 +27,7 @@ app.whenReady().then(() => {
     }
   });
 });
+
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
