@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain, Menu, dialog} = require('electron')
+const {app, BrowserWindow, Menu} = require('electron')
 const path = require('path') 
 
 let mainWindow = null
@@ -33,13 +33,3 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
-
-// from renderer process
-ipcMain.on('open-dialog', (event, data) => {
-  dialog.showMessageBox(mainWindow, {
-    type: 'error',
-    title: data.title,
-    message: data.message,
-    buttons: ['OK']
-  });
-});

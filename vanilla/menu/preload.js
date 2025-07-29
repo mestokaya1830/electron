@@ -6,9 +6,6 @@ const {contextBridge, ipcRenderer} = require('electron');
 
 
 contextBridge.exposeInMainWorld('api', {
-  openDialog: (data) => ipcRenderer.send('open-dialog', {
-    title: 'Unexpected Error',
-    message: 'Something went wrong.'
-  }),
+ 
 });
 
