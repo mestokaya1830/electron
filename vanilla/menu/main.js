@@ -11,7 +11,71 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
     }
   })
-  Menu.setApplicationMenu(null)//all windows will not have a menu bar
+  const mainMenu = Menu.buildFromTemplate([
+    {
+      label: 'File',
+      submenu: [
+        {
+          label: 'Close',
+          click: () => {
+            mainWindow.close()
+          }
+        }
+      ]
+    },
+    {
+      label: 'Edit',
+      submenu: [
+        {
+          label: 'Undo',
+          role: 'undo'
+        },
+        {
+          label: 'Redo',
+          role: 'redo'
+        },
+        { type: 'separator' },
+        {
+          label: 'Cut',
+          role: 'cut'
+        },
+        {
+          label: 'Copy',
+          role: 'copy'
+        },
+        {
+          label: 'Paste',
+          role: 'paste'
+        }
+      ]
+    },
+    {
+      label: 'View',
+      submenu: [
+        {
+          label: 'Reload',
+          role: 'reload'
+        },
+        {
+          label: 'Toggle Developer Tools',
+          role: 'toggleDevTools'
+        }
+      ]
+    },
+    {
+      label: 'Help',
+      submenu: [
+        {
+          label: 'Learn More',
+          click: () => {
+            require('electron').shell.openExternal('https://electronjs.org')
+          },
+          accelerator: 'cmdOrCtrl+Shift+H'
+        }
+      ]
+    }
+  ])
+  Menu.setApplicationMenu(mainMenu)//all windows will not have a menu bar
   // mainWindow.setMenu(null) //for this window only
 
   mainWindow.loadFile('index.html')
@@ -23,7 +87,7 @@ function createWindow() {
 
   mainWindow.on('close-main-window', (event) => {
     event.preventDefault()
-    usersWin.close() // Hide the window instead of closing it
+    usersWin.close() //i will close this window
   })
 }
 app.whenReady().then(createWindow)
