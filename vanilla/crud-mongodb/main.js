@@ -39,15 +39,27 @@ app.on('window-all-closed', () => {
 });
 
 
-//get users
-ipcMain.on("add-new-user", async(event, data) => {
-    const newUser = new Users(data)
-    await newUser.save()
-    event.sender.send("new-user-status", "User added successfully");
-})
-
 //add new user
-ipcMain.on("get-users", async (event) => {
-    const users = await Users.find();
-    event.sender.send("get-users-status", users);
+ipcMain.handle("add-new-user", async(event, data) => {
+    try {
+        const newUser = new Users(data);
+        await newUser.save();
+        event.sender.send("new-user-status", "User added successfully");
+        return { success: true, message: "User added successfully" };
+    } catch (error) {
+        event.sender.send("new-user-status", "Error adding user");
+        return { success: false, error: error.message };
+    }
+});
+
+//get users
+ipcMain.handle("get-users", async (event) => {
+    try {
+        const users = await Users.find();
+        event.sender.send("get-users-status", users);
+        return users;
+    } catch (error) {
+        event.sender.send("get-users-status", []);
+        return [];
+    }
 });

@@ -1,35 +1,68 @@
-
 window.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("btn").addEventListener("click", (e) => {
-    e.preventDefault(); // Prevent form submission
+  document.getElementById("btn").addEventListener("click", async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-    const name = document.getElementById("name").value;
-    const password = document.getElementById("password").value;
     if (!name || !password) {
       alert("Please fill in all fields.");
       return;
     }
-// add new user
-    window.api.addNewUser({ name: name, password: password });
-    window.api.newUserStatus((message) => {
-      if(message == 'User added successfully'){
-        alert("User added successfully");
-        document.getElementById("name").value = '';
-        document.getElementById("password").value = '';
-         window.api.getUsers();
+
+    try {
+      const result = await window.api.addNewUser({name: name, password: password});
+      console.log("User added:", result);
+      if (!result.success) {
+        alert("Error adding user: " + result.error);
       }
-    });
+    } catch (error) {
+      console.error("Error adding user:", error);
+      alert("Error adding user");
+    }
   });
 
-//get users
-  window.api.getUsers(); 
-  window.api.getUsersStatus((users) => {
+  window.api.newUserStatus((data) => {
+    console.log("New user status:", data);
+    if (data.message === "User added successfully") {
+      alert("User added successfully");
+      document.getElementById("name").value = "";
+      document.getElementById("password").value = "";
+      loadUsers();
+    }
+  });
+
+  const loadUsers = async () => {
+    try {
+      const users = await window.api.getUsers();
+      updateUserList(users);
+    } catch (error) {
+      console.error("Error loading users:", error);
+    }
+  };
+
+  const updateUserList = (users) => {
     const userList = document.getElementById("userList");
-    userList.innerHTML = '';
-    users.forEach(item => {
+    userList.innerHTML = "";
+
+    if (!users || users.length === 0) {
       const li = document.createElement("li");
-      li.textContent = `${item._doc.name} - ${item._doc.password}`;
+      li.textContent = "No users found";
+      userList.appendChild(li);
+      return;
+    }
+
+    users.forEach((item) => {
+      const li = document.createElement("li");
+      li.textContent = `${item.name || item._doc?.name} - ${
+        item.password || item._doc?.password
+      }`;
       userList.appendChild(li);
     });
+  };
+  
+  loadUsers();
+
+  window.api.getUsersStatus((users) => {
+    updateUserList(users);
   });
 });
