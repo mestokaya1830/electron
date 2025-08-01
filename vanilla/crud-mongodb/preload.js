@@ -5,9 +5,9 @@ for (const type of ['chrome', 'node', 'electron']) {
 }
 
 contextBridge.exposeInMainWorld('api', {
-  addUser: (data) => ipcRenderer.send('add-user', data),
-  insertResult: (callback) => ipcRenderer.on('result', (event, data) => callback(data)),
+  addNewUser: (data) => ipcRenderer.send('add-new-user', data),
+  newUserStatus: (callback) => ipcRenderer.on('new-user-status', (event, data) => callback(data)),
 
   getUsers: () => ipcRenderer.send('get-users'),
-  usersResult: (callback) => ipcRenderer.on('users-list', (event, data) => callback(data)),
+  getUsersStatus: (callback) => ipcRenderer.on('get-users-status', (event, data) => callback(data)),
 });

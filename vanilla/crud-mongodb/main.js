@@ -38,14 +38,16 @@ app.on('window-all-closed', () => {
     }
 });
 
-ipcMain.on("get-users", async (event) => {
-    const users = await Users.find();
-    event.sender.send("users-list", users);
-});
 
-ipcMain.on("add-user", async(event, data) => {
-    console.log("Received user data:", data);
+//get users
+ipcMain.on("add-new-user", async(event, data) => {
     const newUser = new Users(data)
     await newUser.save()
-   event.sender.send("result", "User added successfully");
+    event.sender.send("new-user-status", "User added successfully");
 })
+
+//add new user
+ipcMain.on("get-users", async (event) => {
+    const users = await Users.find();
+    event.sender.send("get-users-status", users);
+});

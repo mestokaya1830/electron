@@ -9,23 +9,23 @@ window.addEventListener("DOMContentLoaded", () => {
       alert("Please fill in all fields.");
       return;
     }
-    // Assuming window.api.addUser is a function to add a user
-    window.api.addUser({ name: name, password: password });
-    // Listen for the result from the main process
-    window.api.insertResult((message) => {
+// add new user
+    window.api.addNewUser({ name: name, password: password });
+    window.api.newUserStatus((message) => {
       if(message == 'User added successfully'){
         alert("User added successfully");
         document.getElementById("name").value = '';
         document.getElementById("password").value = '';
          window.api.getUsers();
-      } // Display the message received from the main process
+      }
     });
   });
 
+//get users
   window.api.getUsers(); 
-  window.api.usersResult((users) => {
+  window.api.getUsersStatus((users) => {
     const userList = document.getElementById("userList");
-    userList.innerHTML = ''; // Clear existing list
+    userList.innerHTML = '';
     users.forEach(item => {
       const li = document.createElement("li");
       li.textContent = `${item._doc.name} - ${item._doc.password}`;
