@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 //PROMISE
-const db = mongoose.connect('mongodb://electron:mk1972mk@localhost:27017/blog?authSource=electron')
+const db = mongoose.connect('mongodb://electron:mk1972mk@localhost:27017/electron?authSource=electron')
 .then(() => console.log('Connected with Promise'))
 .catch((err) => console.log(err))
 module.exports = db;

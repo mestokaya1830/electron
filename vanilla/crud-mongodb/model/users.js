@@ -16,7 +16,7 @@ const usersSC = new mongoose.Schema({
   token: {type: String}
 })
 
-export default mongoose.model('users', usersSC)
+module.exports = mongoose.model('users', usersSC)
 
 
 //not when unique not works
