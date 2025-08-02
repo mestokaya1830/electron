@@ -1,15 +1,9 @@
 window.addEventListener("DOMContentLoaded", () => {
-
   //add new users
   document.getElementById("btn").addEventListener("click", async (e) => {
     e.preventDefault();
     const name = document.getElementById("name").value.trim();
     const password = document.getElementById("password").value.trim();
-
-    if (!name || !password) {
-      alert("Please fill in all fields.");
-      return;
-    }
 
     try {
       const result = await window.api.addNewUser({
@@ -17,9 +11,10 @@ window.addEventListener("DOMContentLoaded", () => {
         password: password,
       });
       if (!result.success) {
-        alert("Error adding user: " + result.error);
+        document.getElementById('statusError').innerText = result.error
         return false
       }
+      document.getElementById('statusError').innerText = ""
       document.getElementById("name").value = ""
       document.getElementById("password").value = ""
       loadUsers();
