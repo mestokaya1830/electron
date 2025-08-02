@@ -50,16 +50,6 @@ ipcMain.handle("add-new-user", async (event, data) => {
   }
 });
 
-//get users
-ipcMain.handle("get-users", async (event) => {
-  try {
-    const users = await Users.find();
-    return users;
-  } catch (error) {
-    return error;
-  }
-});
-
 //delete user
 ipcMain.handle("delete-user", async (event, data) => {
   try {
@@ -68,6 +58,16 @@ ipcMain.handle("delete-user", async (event, data) => {
     }
     await Users.deleteOne({ _id: data });
     return { success: true };
+  } catch (error) {
+    return error;
+  }
+});
+
+//get users
+ipcMain.handle("get-users", async (event) => {
+  try {
+    const users = await Users.find();
+    return users;
   } catch (error) {
     return error;
   }

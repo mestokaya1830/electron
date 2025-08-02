@@ -1,4 +1,6 @@
 window.addEventListener("DOMContentLoaded", () => {
+
+  //add new users
   document.getElementById("btn").addEventListener("click", async (e) => {
     e.preventDefault();
     const name = document.getElementById("name").value.trim();
@@ -27,40 +29,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  const loadUsers = async () => {
-    try {
-      const users = await window.api.getUsers();
-      updateUserList(users);
-    } catch (error) {
-      console.error("Error loading users:", error);
-    }
-  };
-
-  const updateUserList = (users) => {
-    const userList = document.getElementById("userList");
-    userList.innerHTML = "";
-
-    if (!users || users.length === 0) {
-      const li = document.createElement("li");
-      li.textContent = "No users found";
-      userList.appendChild(li);
-    }
-
-    users.forEach((item) => {
-      const userId = Array.from(item._doc._id.buffer)
-        .map((item) => item.toString(16).padStart(2, "0"))
-        .join("");
-      userList.innerHTML += `
-      <li class="users-list">
-      <span>${item.name || item._doc?.name}</span>
-      <span>${item.password || item._doc?.password}</span>
-      <button class="delete-btn" id="${userId}">Delete</button>
-      </li>`;
-    });
-  };
-
-  loadUsers();
-
+  //delete user
   document.getElementById("userList").addEventListener("click", async(e) => {
     if (e.target.classList.contains("delete-btn")) {
       const userId = e.target.id;
@@ -70,4 +39,35 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
+
+  //load users
+  const loadUsers = async () => {
+    try {
+      const users = await window.api.getUsers()
+      const userList = document.getElementById("userList");
+      userList.innerHTML = "";
+  
+      if (!users || users.length === 0) {
+        const li = document.createElement("li");
+        li.textContent = "No users found";
+        userList.appendChild(li);
+      }
+  
+      users.forEach((item) => {
+        const userId = Array.from(item._doc._id.buffer)
+          .map((item) => item.toString(16).padStart(2, "0"))
+          .join("");
+        userList.innerHTML += `
+        <li class="users-list">
+        <span>${item.name || item._doc?.name}</span>
+        <span>${item.password || item._doc?.password}</span>
+        <button class="delete-btn" id="${userId}">Delete</button>
+        </li>`;
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+  loadUsers();
 });
