@@ -16,11 +16,11 @@ window.addEventListener("DOMContentLoaded", () => {
       });
       if (!result.success) {
         alert("Error adding user: " + result.error);
-      } else {
-        document.getElementById("name").value = ""
-        document.getElementById("password").value = ""
-        loadUsers();
+        return false
       }
+      document.getElementById("name").value = ""
+      document.getElementById("password").value = ""
+      loadUsers();
     } catch (error) {
       console.error("Error adding user:", error);
       alert("Error adding user");
@@ -44,7 +44,6 @@ window.addEventListener("DOMContentLoaded", () => {
       const li = document.createElement("li");
       li.textContent = "No users found";
       userList.appendChild(li);
-      return;
     }
 
     users.forEach((item) => {
