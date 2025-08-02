@@ -10,24 +10,20 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const result = await window.api.addNewUser({name: name, password: password});
-      console.log("User added:", result);
+      const result = await window.api.addNewUser({
+        name: name,
+        password: password,
+      });
       if (!result.success) {
         alert("Error adding user: " + result.error);
+      } else {
+        document.getElementById("name").value = ""
+        document.getElementById("password").value = ""
+        loadUsers();
       }
     } catch (error) {
       console.error("Error adding user:", error);
       alert("Error adding user");
-    }
-  });
-
-  window.api.newUserStatus((data) => {
-    console.log("New user status:", data);
-    if (data.message === "User added successfully") {
-      alert("User added successfully");
-      document.getElementById("name").value = "";
-      document.getElementById("password").value = "";
-      loadUsers();
     }
   });
 
@@ -52,17 +48,27 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     users.forEach((item) => {
-      const li = document.createElement("li");
-      li.textContent = `${item.name || item._doc?.name} - ${
-        item.password || item._doc?.password
-      }`;
-      userList.appendChild(li);
+      const userId = Array.from(item._doc._id.buffer)
+        .map((item) => item.toString(16).padStart(2, "0"))
+        .join("");
+      userList.innerHTML += `
+      <li class="users-list">
+      <span>${item.name || item._doc?.name}</span>
+      <span>${item.password || item._doc?.password}</span>
+      <button class="delete-btn" id="${userId}">Delete</button>
+      </li>`;
     });
   };
-  
+
   loadUsers();
 
-  window.api.getUsersStatus((users) => {
-    updateUserList(users);
+  document.getElementById("userList").addEventListener("click", async(e) => {
+    if (e.target.classList.contains("delete-btn")) {
+      const userId = e.target.id;
+      const result = await window.api.deleteUser(userId);
+      if(result.success){
+        loadUsers()
+      }
+    }
   });
 });

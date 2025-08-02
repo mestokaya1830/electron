@@ -5,9 +5,11 @@ for (const type of ['chrome', 'node', 'electron']) {
 }
 
 contextBridge.exposeInMainWorld('api', {
-  addNewUser: (data) => ipcRenderer.invoke('add-new-user', data),
-  newUserStatus: (callback) => ipcRenderer.once('new-user-status', (event, data) => callback(data)),
+  addNewUser: async (data) => await ipcRenderer.invoke('add-new-user', data),
+  getUsers: async () => await ipcRenderer.invoke('get-users'),
+  deleteUser: async (data) => await ipcRenderer.invoke('delete-user', data),
 
-  getUsers: () => ipcRenderer.invoke('get-users'),
-  getUsersStatus: (callback) => ipcRenderer.once('get-users-status', (event, data) => callback(data)),
+  // // sürekli dinlenmesi gerekenler:
+  // getUsersStatus: (callback) => ipcRenderer.on('get-users-status', (event, data) => callback(data)),
+  // deleteUserStatus: (callback) => ipcRenderer.on('delete-user-status', (event, data) => callback(data)),
 });
