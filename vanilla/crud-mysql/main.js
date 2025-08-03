@@ -8,12 +8,15 @@ function createWindow() {
   win = new BrowserWindow({
     width: 800,
     height: 600,
-    webPreferences: {
+     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: true,
-      preload: path.join(__dirname, "preload.js"),
-    },
+      enableRemoteModule: false,
+      webSecurity: true,
+      allowRunningInsecureContent: false,
+      preload: path.join(__dirname, 'preload.js')
+    }
   });
 
   win.loadFile("index.html");
@@ -22,6 +25,7 @@ function createWindow() {
   });
   // win.webContents.openDevTools(); // Open DevTools for debugging
 }
+app.enableSandbox()
 
 app.whenReady().then(() => {
   createWindow()

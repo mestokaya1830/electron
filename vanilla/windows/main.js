@@ -6,11 +6,14 @@ let usersWin = null
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    webPreferences: {
+     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: true,
-      preload: path.join(__dirname, 'preload.js'),
+      enableRemoteModule: false,
+      webSecurity: true,
+      allowRunningInsecureContent: false,
+      preload: path.join(__dirname, 'preload.js')
     }
   })
   Menu.setApplicationMenu(null)
@@ -23,6 +26,7 @@ function createWindow() {
   })
 }
 
+app.enableSandbox()
 app.whenReady().then(() => {
   createWindow()
   globalShortcut.register('CmdOrCtrl+Shift+U', () => {

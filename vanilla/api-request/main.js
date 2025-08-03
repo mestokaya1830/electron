@@ -7,7 +7,10 @@ function createWindow() {
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: true,
-      preload: path.join(__dirname, 'preload.js'),
+      enableRemoteModule: false,
+      webSecurity: true,
+      allowRunningInsecureContent: false,
+      preload: path.join(__dirname, 'preload.js')
     }
   })
   win.loadFile('index.html')
@@ -18,6 +21,7 @@ function createWindow() {
   })
 }
 
+app.enableSandbox()
 app.whenReady().then(() => {
   createWindow()
   app.on('activate', () => {

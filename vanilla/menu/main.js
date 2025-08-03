@@ -8,8 +8,11 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      sandbox:true,
-      preload: path.join(__dirname, 'preload.js'),
+      sandbox: true,
+      enableRemoteModule: false,
+      webSecurity: true,
+      allowRunningInsecureContent: false,
+      preload: path.join(__dirname, 'preload.js')
     }
   })
   const mainMenu = Menu.buildFromTemplate([
@@ -91,6 +94,7 @@ function createWindow() {
     usersWin.close() //i will close this window
   })
 }
+app.enableSandbox()
 app.whenReady().then(() => {
   createWindow()
   app.on('activate', () => {
