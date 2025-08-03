@@ -2,7 +2,7 @@ const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path') 
 
 function createWindow() {
-  let win = new BrowserWindow({
+  const win = new BrowserWindow({
       webPreferences: {
         nodeIntegration: false,             // Disable Node.js integration in the renderer for security
         contextIsolation: true,             // Isolate context between preload and renderer to prevent prototype pollution
@@ -14,7 +14,7 @@ function createWindow() {
       }
   })
   win.loadFile('index.html')
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
   
   win.on('closed', () => {
     win = null
