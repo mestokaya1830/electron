@@ -5,6 +5,5 @@ const {contextBridge, ipcRenderer} = require('electron');
   }
 
 contextBridge.exposeInMainWorld('api', {
-  getUsers: (data) => ipcRenderer.invoke('get-users', data),
-  dataReturn: (callback) => ipcRenderer.on('data-return', (event, data) => callback(data))
+  getUsers: async(data) => await ipcRenderer.invoke('get-users', data),
 });

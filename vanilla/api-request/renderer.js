@@ -1,10 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("btn").addEventListener("click", () => {
-    window.api.getUsers()
-  });
-  window.api.dataReturn((data) => {
-    data.forEach(item => {
-      document.getElementById("result").innerText += item.name + "\n";
-    });
-  });
+  document.getElementById("btn").addEventListener("click", async() => {
+    const users = await window.api.getUsers()
+    console.log(users)
+  })
 });

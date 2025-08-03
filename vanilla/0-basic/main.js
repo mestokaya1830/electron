@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path') 
 
 function createWindow() {
@@ -28,5 +28,13 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
+  }
+})
+
+ipcMain.handle('get-message', (event) => {
+  try {
+    return 'Hello Electron'
+  } catch (error) {
+    console.log(error)
   }
 })

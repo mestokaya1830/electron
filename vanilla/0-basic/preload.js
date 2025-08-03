@@ -5,7 +5,5 @@ for (const type of ['chrome', 'node', 'electron']) {
 }
 
 contextBridge.exposeInMainWorld('api', {
-//   addNewUser: async (data) => await ipcRenderer.invoke('add-new-user', data),
-//   getUsers: async () => await ipcRenderer.invoke('get-users'),
-//   deleteUser: async (data) => await ipcRenderer.invoke('delete-user', data),
+  getMessage: async (message) => await ipcRenderer.invoke('get-message', message)
 });

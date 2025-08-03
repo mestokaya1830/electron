@@ -34,12 +34,7 @@ app.on('window-all-closed', () => {
 
 // from renderer process
 ipcMain.handle('get-users', async (event) => {
-   const getUsers = async () => {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/users"
-      );
-      return response.json();
-    };
-  const users = await getUsers();
-  event.sender.send('data-return', users);
+  const response = await fetch("https://jsonplaceholder.typicode.com/users");
+  const users = await response.json();
+  return users
 });
