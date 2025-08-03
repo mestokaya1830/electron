@@ -22,17 +22,16 @@ function createWindow() {
   // win.webContents.openDevTools(); // Open DevTools for debugging
 }
 
-app.whenReady().then(createWindow);
-app.on("before-quit", () => {
-  if (win) {
-    win.close();
-  }
-});
-app.on("activate", () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
-});
+app.whenReady().then(() => {
+  createWindow()
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+    }
+  })
+})
+
+
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
