@@ -20,6 +20,9 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^4.0.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "sqlite3": "^5.1.7",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
