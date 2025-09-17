@@ -1,6 +1,7 @@
 const {app, BrowserWindow, ipcMain} = require('electron')
 const fs = require("fs").promises;
 const path = require("path");
+const os = require("os");
 
 function createWindow() {
   let win = new BrowserWindow({
@@ -40,13 +41,16 @@ app.on('window-all-closed', () => {
 
 
 //ipcMain handlers
-ipcMain.handle("load-image", async (event, data) => {
+ipcMain.handle("save-image", async (event, base64Data, fileName) => {
   try {
-    if (!data) throw new Error("filePath is undefined");
-    const data = await fs.readFile(data);
-    return data.toString("base64");
+    const buffer = Buffer.from(base64Data.split(",")[1], "base64");
+    // const savePath = path.join(os.homedir(), fileName);//linux home folder
+    // const savePath = path.join(os.homedir(), "Downloads", fileName);// linux downloads folder
+    const savePath = path.join(app.getAppPath(), "uploads", fileName);// inner app uploads folder
+    await fs.writeFile(savePath, buffer);
+    return savePath;
   } catch (err) {
-    console.error("Error reading image:", err);
+    console.error("Error saving image:", err);
     return null;
   }
 });

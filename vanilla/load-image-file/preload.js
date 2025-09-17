@@ -7,5 +7,5 @@ for (const type of ['chrome', 'node', 'electron']) {
 
 
 contextBridge.exposeInMainWorld("api", {
-  loadImage: (data) => ipcRenderer.invoke("load-image", data),
+  saveImage: (base64Data, fileName) => ipcRenderer.invoke("save-image", base64Data, fileName),
 });
