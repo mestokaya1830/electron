@@ -20,9 +20,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
   //save image
   saveBtn.addEventListener("click", async () => {
-    if (!currentBase64) return alert("Önce bir resim seçin!");
-    const savedPath = await window.api.saveImage(currentBase64,"my_saved_image.png");
-    if (savedPath) alert(`Resim kaydedildi: ${savedPath}`);
-    else alert("Resim kaydedilemedi!");
+    if (!currentBase64) return alert("No image selected!");
+    const savedPath = await window.api.saveImage(currentBase64, "saved.png");
+    if (savedPath) alert(`Image saved: ${savedPath}`);
+    else alert("Image could not be saved!");
   });
 });
