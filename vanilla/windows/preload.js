@@ -5,6 +5,6 @@ const {contextBridge, ipcRenderer} = require('electron');
   }
 
 contextBridge.exposeInMainWorld('api', {
-  getUsers: () => ipcRenderer.send('get-users'),
+  getUsersWindow: () => ipcRenderer.send('get-users-window'),
 });
 

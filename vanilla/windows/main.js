@@ -55,27 +55,23 @@ app.on('will-quit', () => {
   globalShortcut.unregisterAll()
 })
 
-function createUsersWindow() {
-  usersWin = new BrowserWindow({
-    width: 600,
-    height: 400,
-    parent: mainWindow,
-    webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js'),
-    }
-  })
-  
-  usersWin.loadFile('users.html')
-  usersWin.webContents.openDevTools()
-  
-  usersWin.on('closed', () => {
-    usersWin = null
-  })
-}
-
 // from renderer process
-ipcMain.on('get-users', (event) => {
-  createUsersWindow()
+ipcMain.on('get-users-window', (event) => {
+   usersWin = new BrowserWindow({
+     width: 600,
+     height: 400,
+     parent: mainWindow,
+     webPreferences: {
+       nodeIntegration: false,
+       contextIsolation: true,
+       preload: path.join(__dirname, "preload.js"),
+     },
+   });
+
+   usersWin.loadFile("users.html");
+   usersWin.webContents.openDevTools();
+
+   usersWin.on("closed", () => {
+     usersWin = null;
+   });
 });

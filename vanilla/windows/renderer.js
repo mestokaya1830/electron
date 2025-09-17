@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("btn");
-  if(btn) {
+  if (btn) {
     document.getElementById("btn").addEventListener("click", () => {
-      window.api.getUsers();
+      window.api.getUsersWindow();
     });
   }
-  console.log("Renderer process initialized");
-});
+})
