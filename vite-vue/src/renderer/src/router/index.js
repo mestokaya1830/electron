@@ -1,14 +1,20 @@
-import { createWebHistory, createRouter } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
+import Layout from '../layouts/Index.vue'
 import Home from '../views/Index.vue'
-import Customers from '../views/customers/Index.vue'
-import Invoices from '../views/Invoices.vue'
-import About from '../views/About.vue'
+import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
 
 const routes = [
-  { path: '/', name: 'Home', component: Home },
-  { path: '/invoices', name: 'Invoices', component: Invoices },
-  { path: '/customers', name: 'Customers', component: Customers },
-  { path: '/about', name: 'About', component: About }
+  {
+    path: '/',
+    name: 'Layout',
+    component: Layout,
+    children: [
+      { path: '/', name: 'Home', component: Home, meta: { title: 'Home' } },
+      { path: '/login', name: 'Login', component: Login, meta: { title: 'Login' } },
+      { path: '/register', name: 'Register', component: Register, meta: { title: 'Register' } }
+    ]
+  }
 ]
 
 const router = createRouter({
@@ -19,7 +25,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title
+  document.title = to.meta.title || 'Default Title'
   next()
 })
+
 export default router
