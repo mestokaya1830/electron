@@ -8,7 +8,7 @@
 export default {
   data() {
     return {
-      title: 'Register Page'
+      title: 'Invoices Page'
     }
   },
   mounted() {},

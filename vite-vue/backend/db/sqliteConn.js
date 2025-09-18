@@ -1,13 +1,16 @@
 import sqlite3 from 'sqlite3'
 import path from 'path'
+import { fileURLToPath } from 'url'
+sqlite3.verbose()
 
-// SQLite veritabanı dosyasının yolu
-const dbPath = path.resolve(__dirname, './invoice.sqlite')
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const dbPath = path.resolve(__dirname, '../../backend/db/invoice.db')
 
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     console.error('Connection error:', err.message)
   } else {
+    console.log('DB Path:', dbPath)
     console.log('Connected to the SQLite3 database.')
   }
 })
