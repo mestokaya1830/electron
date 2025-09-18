@@ -8,7 +8,7 @@
 export default {
   data() {
     return {
-      title: 'About Page'
+      title: 'Login Page'
     }
   },
   mounted() {},
