@@ -1,7 +1,7 @@
 <template lang="">
   <div>
-    <router-link to="/">Home</router-link>
-    <router-link to="/login">Login</router-link>
-    <router-link to="/register">Register</router-link>
-  </div>
+    <router-link to="/" exact-active-class="active">Home</router-link>
+    <router-link to="/login" exact-active-class="active">Login</router-link>
+    <router-link to="/register" exact-active-class="active">Register</router-link>
+  </div> 
 </template>
