@@ -11,7 +11,18 @@ export default {
       title: 'Home Page'
     }
   },
-  mounted() {},
-  methods: {}
+  mounted() {
+    this.getUsers()
+  },
+  methods: {
+    async getUsers() {
+      try {
+        const res = await window.api.getUsers()
+        console.log(res)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  }
 }
 </script>

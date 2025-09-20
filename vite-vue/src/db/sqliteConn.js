@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url'
 sqlite3.verbose()
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const dbPath = path.resolve(__dirname, '../../backend/db/invoice.db')
+const dbPath = path.resolve(__dirname, '../../src/db/test.db')
 
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
@@ -15,17 +15,14 @@ const db = new sqlite3.Database(dbPath, (err) => {
   }
 })
 
-// db.run(`
-//   CREATE TABLE IF NOT EXISTS customers (
-//   id INTEGER PRIMARY KEY AUTOINCREMENT,
-//   name TEXT NOT NULL,
-//   email TEXT,
-//   phone TEXT,
-//   address TEXT,
-//   tax_number TEXT,
-//   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-//   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-// )`)
+db.run(`
+  CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT,
+  password TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+)`)
 
 // db.run(`DROP TABLE IF EXISTS customers;`);
 db.all("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;", [], (err, rows) => {
