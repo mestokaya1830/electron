@@ -1,8 +1,7 @@
-import { contextBridge } from 'electron'
-import { electronAPI } from '@electron-toolkit/preload'
+import { contextBridge, ipcRenderer } from 'electron'
 
-contextBridge.exposeInMainWorld('api', electronAPI)
-
-contextBridge.exposeInMainWorld('ipcRenderer', {
-  
+contextBridge.exposeInMainWorld('api', {
+  login: async (data) => ipcRenderer.invoke('login', data),
+  register: async (data) => ipcRenderer.invoke('register', data),
+  getUsers: async (data) => ipcRenderer.invoke('getUsers', data)
 })
