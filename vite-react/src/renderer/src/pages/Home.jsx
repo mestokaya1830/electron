@@ -13,6 +13,7 @@ export default function Home() {
   const users = useSelector((state) => state.users)
   console.log(users)
   const dispatch = useDispatch()
+  
   const logout = async () => {
     const res = await window.api.logout()
     if (res.success) {
