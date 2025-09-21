@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 // import { setAuth } from '../../store/authSlice.jsx'
 // import { useDispatch } from 'react-redux'
-import { Helmet } from 'react-helmet'
 
 export default function Login() {
   // const dispatch = useDispatch()
@@ -28,22 +27,14 @@ export default function Login() {
     } else {
       setError(res.message)
     }
-    // axios
-    //   .post('http://localhost:3000/api/login', user)
-    //   .then((res) => {
-    //     dispatch(setAuth(res.data.auth))
-    //     res.status === 200 ? navigate('/admin') : setError(res.data)
-    //   })
-    //   .catch((err) => console.log(err))
   }
   return (
     <>
-      <Helmet>
-        <title>Login</title>
-        <meta name="description" content="Login content" />
-        <meta name="keywords" content="react, meta tags, seo" />
-        <meta name="author" content="Your Name" />
-      </Helmet>
+      <title>Login</title>
+      <meta name="description" content="Login content" />
+      <meta name="keywords" content="react, meta tags, seo" />
+      <meta name="author" content="Your Name" />
+
       <form onSubmit={loginUser} className="container border rounded p-5">
         <h3 style={{ marginBottom: '30px' }}>Login</h3>
         <div className="mb-3 row">

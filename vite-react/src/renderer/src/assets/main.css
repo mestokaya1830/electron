@@ -57,7 +57,7 @@ code {
 
 .text {
   font-size: 28px;
-  color: var(--ev-c-text-1);
+  /* color: var(--ev-c-text-1); */
   font-weight: 700;
   line-height: 32px;
   text-align: center;
@@ -143,6 +143,15 @@ code {
   }
 }
 
+.links{
+  color: aliceblue;
+  text-decoration: none;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: larger;
+  font-weight: 600;
+  font-family: 'Menlo', 'Lucida Console', monospace;
+}
 @media (max-width: 720px) {
   .text {
     font-size: 20px;
