@@ -99,3 +99,9 @@ ipcMain.handle('getUsers', async () => {
     })
   })
 })
+
+ipcMain.handle('logout', async () => {
+  return new Promise((resolve) => {
+    resolve({ success: true })
+  })
+})

@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-// import { setAuth } from '../../store/authSlice.jsx'
-// import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 export default function Login() {
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const [user, setUser] = useState({
     email: '',
@@ -23,6 +22,7 @@ export default function Login() {
     const res = await window.api.login(user)
     console.log(res)
     if (res.success) {
+      dispatch({ type: 'login', payload: res.user })
       navigate('/')
     } else {
       setError(res.message)
@@ -35,7 +35,7 @@ export default function Login() {
       <meta name="keywords" content="react, meta tags, seo" />
       <meta name="author" content="Your Name" />
 
-      <form onSubmit={loginUser} className="container border rounded p-5">
+      <form className="container border rounded p-5">
         <h3 style={{ marginBottom: '30px' }}>Login</h3>
         <div className="mb-3 row">
           <label htmlFor="email" className="form-label">
@@ -69,9 +69,7 @@ export default function Login() {
           </div>
         </div>
         <div className="d-grid">
-          <button type="submit" className="btn btn-dark btn-lg">
-            Login
-          </button>
+          <button onClick={loginUser}>Login</button>
         </div>
       </form>
     </>
